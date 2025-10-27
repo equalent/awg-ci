@@ -15,7 +15,8 @@ jobs:
 
       - name: Build client
         run: |
-          ./repo/gradlew assembleRelease
+          ./gradlew assembleRelease
+        working-directory: repo
 
       - name: Show build outputs
         run: |
