@@ -1,0 +1,28 @@
+name: AWG Windows Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clone amneziawg-windows
+        run: git clone https://github.com/amnezia-vpn/amneziawg-windows.git
+
+      - name: Run build.cmd
+        run: |
+          cd amneziawg-windows
+          .\build.cmd
+        shell: cmd
+
+      - name: Show tree
+        run: |
+          cd amneziawg-windows
+          tree /F
+        shell: cmd
