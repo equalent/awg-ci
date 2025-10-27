@@ -1,0 +1,29 @@
+name: AWG Android Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clone amneziawg-android
+        run: git clone --recurse-submodules https://github.com/amnezia-vpn/amneziawg-android repo
+
+      - name: Build client
+        run: |
+          ./repo/gradlew assembleRelease
+
+      - name: Show build outputs
+        run: |
+          echo "Listing APK/AAB outputs under repo/app/build/outputs:"
+          ls -R repo/app/build/outputs || true
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: awg-android-installer
+          path: repo/app/build/outputs/**/*.apk
