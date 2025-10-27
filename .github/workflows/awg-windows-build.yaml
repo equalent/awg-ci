@@ -22,3 +22,9 @@ jobs:
         run: |
           repo\installer\build.bat
         shell: cmd
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: awg-windows-installer
+          path: repo\installer\dist
